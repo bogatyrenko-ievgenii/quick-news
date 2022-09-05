@@ -1,0 +1,25 @@
+{
+    "name": "quick-news",
+    "version": "1.0.0",
+    "description": "CLI for getting news",
+    "main": "quick-news.js",
+    "bin": {
+        "quick-news": "quick-news.js"
+    },
+    "type": "module",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [
+        "cli",
+        "news",
+        "theguardian"
+    ],
+    "author": "Ievgenii Bogatyrenko",
+    "license": "ISC",
+    "dependencies": {
+        "axios": "^0.27.2",
+        "chalk": "^5.0.1",
+        "dedent": "^0.7.0"
+    }
+}
