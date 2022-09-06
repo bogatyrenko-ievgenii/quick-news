@@ -6,15 +6,33 @@ export const printError = (error) => {
 }
 
 export const printSuccess = (message) => {
-    console.log(chalk.bgGreen(' SUCCESS 🚀 ' + ' ' + message));
+    console.log(chalk.bgGreen(' SUCCESS 🚀 ') + ' ' + message);
+}
+
+export const printLoading = (message) => {
+    console.log(chalk.bgCyan(' Loading... 👀 '));
 }
 
 export const printHelp = () => {
     console.log(
-        dedent`${chalk.bgYellow(' HELP ')}
-        Press any word to look for article
+        dedent`${chalk.bgYellow(' HELP 🤓 ')}
+        Press any word as argument to look for article
         -num [any number] - number of articles you will recieve (default - 5)
-        -by [relevance || oldest || newest || none] - the order by which you will recieve articles (default - relevance)
-        
+        -order [relevance || oldest || newest || none] - the order by which you will recieve articles (default - relevance)
+        -date [yyyy-mm-dd] - date from which you will recieve articles (default - nowaday)
+        -reset - to reset all params
         `);
+}
+
+export const printTitle = (title, section) => {
+    console.log('---------------------------');
+    console.log(chalk.yellow(` ${title} `), chalk.gray(`(${section})`));
+}
+
+export const printArticle = (name) => {
+    console.log(chalk.bold(' =>'), chalk.green(` ${name}`));
+}
+
+export const printMsg = (message) => {
+    console.log(chalk.bold(`${message}`));
 }
