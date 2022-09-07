@@ -13,6 +13,8 @@ export const getData = async (
     let articles = []
     let titles = []
     let section = []
+
+
     try {
         if (!q) {
             return

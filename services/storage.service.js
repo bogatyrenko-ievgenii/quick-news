@@ -11,7 +11,12 @@ export const saveParam = async (key, value) => {
         const file = await promises.readFile(fileDir)
         data = JSON.parse(file)
     }
-    data[key] = value
+
+    if (key == 'order' && value == 'none') {
+        delete data.order
+    } else {
+        data[key] = value
+    }
     await promises.writeFile(fileDir, JSON.stringify(data))
 }
 
