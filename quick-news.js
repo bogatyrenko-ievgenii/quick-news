@@ -7,6 +7,7 @@ import { saveParam, resetParams, readParams } from './services/storage.service.j
 
 const successMsg = 'new settings accepted 😅'
 const errorMsg = 'something went wrong 😤'
+const searchError = 'If you are sure of the right key then the reason is in the program 🤯'
 
 const initCLI = async () => {
     let args = getArgs(process.argv)
@@ -83,7 +84,7 @@ const initCLI = async () => {
             })
             return
         } catch (error) {
-            printError(errorMsg)
+            printError(searchError)
         }
 
     }
