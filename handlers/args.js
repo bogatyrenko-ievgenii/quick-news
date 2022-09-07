@@ -4,13 +4,16 @@ export const getArgs = (args) => {
     rest.forEach((arg, idx, arr) => {
 
         if (arg.charAt(0) === '-') {
-            dict[arg.substring(1)] = arr[idx + 1]
-        }
-        if (arg.charAt(0) !== '-') {
-            dict['search'] = arg
-        }
-        if (arg == '-h' || arg == '-reset') {
-            dict[arg.substring(1)] = true;
+            if (arg === '-h' || arg === '-reset') {
+                dict[arg.substring(1)] = true;
+            } else {
+                dict[arg.substring(1)] = arr[idx + 1]
+            }
+        } else if (arg.charAt(0) !== '-') {
+            let isExist = Object.values(dict).find(value => value == arg)
+            if (!isExist) {
+                dict['search'] = arg
+            }
         }
     })
     return dict

@@ -6,24 +6,27 @@ import { printError, printHelp, printSuccess, printLoading, printTitle, printArt
 import { saveParam, resetParams, readParams } from './services/storage.service.js'
 
 const successMsg = 'new settings accepted 😅'
+const errorMsg = 'something went wrong 😤'
 
 const initCLI = async () => {
     let args = getArgs(process.argv)
 
     if (args.h || Object.keys(args).length == 0) {
         try {
-            return printHelp()
+            printHelp()
+            return
         } catch (error) {
-            printError(error.message)
+            printError(errorMsg)
         }
     }
 
     if (args.num) {
         try {
             saveParam('num', args.num)
-            return printSuccess(successMsg)
+            printSuccess(successMsg)
+            return
         } catch (error) {
-            printError(error.message)
+            printError(errorMsg)
         }
     }
 
@@ -31,25 +34,27 @@ const initCLI = async () => {
         try {
             if (['relevance', 'oldest', 'newest', 'none'].find(item => item === args.order)) {
                 saveParam('order', args.order)
-                return printSuccess(successMsg)
+                printSuccess(successMsg)
+                return
             } else {
                 return printError("Incorrect order, please type one of [relevance || oldest || newest || none]")
             }
         } catch (error) {
-            printError(error.message)
+            printError(errorMsg)
         }
     }
 
     if (args.date) {
         try {
             if (args.date.match(/^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])$/)) {
-                saveParam(args)
-                return printSuccess(successMsg)
+                saveParam('date', args.date)
+                printSuccess(successMsg)
+                return
             } else {
                 return printError("Incorrect date, please type date in format as - [yyyy-mm-dd]");
             }
         } catch (error) {
-            printError(error.message)
+            printError(errorMsg)
         }
     }
 
@@ -59,7 +64,7 @@ const initCLI = async () => {
             printSuccess(successMsg)
             return
         } catch (error) {
-            printError(error.message)
+            printError(errorMsg)
         }
     }
 
@@ -67,7 +72,7 @@ const initCLI = async () => {
         try {
             printLoading()
             let params = await readParams()
-            let data = await getData(args.search, params.num, params.date, params.order)
+            let data = await getData(args.search, params.num, params.date, params.order, params.key)
             if (Object.keys(data).length == 3) {
                 printMsg(' press ctrl/cmd + click to follow the link')
             }
@@ -76,11 +81,21 @@ const initCLI = async () => {
                 printTitle(title, section[idx])
                 printArticle(articles[idx])
             })
-
+            return
         } catch (error) {
-            printError(error.message)
+            printError(errorMsg)
         }
 
+    }
+
+    if (args.key) {
+        try {
+            saveParam('key', args.key)
+            printSuccess(successMsg)
+            return
+        } catch (error) {
+            printError(errorMsg)
+        }
     }
 }
 

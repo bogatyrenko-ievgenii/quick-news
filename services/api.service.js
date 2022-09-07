@@ -1,12 +1,13 @@
 import axios from 'axios'
-import { API_KEY, URL } from './apiAccess.js'
+import { URL } from './_apiURL.js'
 import { printError } from './log.sevice.js'
 
 export const getData = async (
     q,
     pageSize = 5,
     fromDate = new Date(),
-    orderBy = 'relevance'
+    orderBy = 'relevance',
+    key
 ) => {
 
     let articles = []
@@ -20,7 +21,7 @@ export const getData = async (
             params: {
                 q: q,
                 "page-size": pageSize,
-                "api-key": API_KEY,
+                "api-key": key,
                 "form-date": fromDate,
                 "order-by": orderBy
             }
@@ -33,7 +34,7 @@ export const getData = async (
         })
         return { titles, section, articles }
     } catch (error) {
-        printError("Something went wrong, please try again 😑 ")
+        printError("Apparently, key is missing. Try to run script whith flag -h 😑 ")
     }
 
 }
